@@ -14,6 +14,12 @@ Bash script to generate and install Let's Encrypt certificate for your websites 
 - Run `sple.sh` anywhere from your console as root
 - Follow the on-screen instructions
 
+##  For force https on apache - testet on gravcms
+```
+RewriteCond %{HTTPS} =off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [QSA,L,R=301]
+```
+
 ## Why `root`?
 This script updates/create script in the `/etc/nginx-sp` that requires root access
 
