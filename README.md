@@ -58,3 +58,13 @@ Add the following to your crontab (`crontab -e`)
 - To force HTTPS on your website, please follow [instructions here](https://serverpilot.io/community/articles/how-to-force-SSL-by-redirecting-http-to-https.html)
 - To redirect www to non-www or non-www to www on your website, please follow [instructions here](https://serverpilot.io/community/articles/how-to-redirect-to-a-different-domain.html)
 - Obey/observe the rate limits. [Read the full documentation](https://letsencrypt.org/docs/rate-limits/) on the Let's Encrypt website for more information.
+
+## Manually Forcing SSL
+
+If you need to manually redirect your entire site, create a .htaccess file in your app's public folder and add the following at the beginning of the file:
+```
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [R=302,L]
+```
+If you only want to have SSL enabled for a single directory within your app, place the .htaccess file in that directory.
+You can change the 302 to a 301 after you have confirmed your redirect is working as expected and you are ready for it to be cached by browsers.
